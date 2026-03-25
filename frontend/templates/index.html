@@ -895,6 +895,9 @@
             transition: border-color var(--transition), box-shadow var(--transition);
             outline: none;
             -webkit-appearance: none;
+            /* для старых Safari/Chrome */
+            appearance: none;
+            /* современный стандарт */
         }
 
         .form-group input:focus,
@@ -1199,60 +1202,36 @@
             </div>
 
             <div class="cards-grid">
-                <!-- Card 1 -->
-                <article class="ann-card">
-                    <span class="ann-tag">Набор</span>
-                    <h3>Открыт набор в летние группы — июль 2025</h3>
-                    <p>Начинается новый учебный цикл. Записывайтесь заранее: места в группах уровня A1 и B1 ограничены —
-                        не более 10 студентов.</p>
-                    <div class="ann-date">15 июня 2025</div>
-                </article>
 
-                <!-- Card 2 -->
+                {% if announcements %}
+                {% for announcement in announcements %}
                 <article class="ann-card">
-                    <span class="ann-tag">Мероприятие</span>
-                    <h3>Разговорный клуб: тема «Путешествия по Корее»</h3>
-                    <p>Каждую субботу в 12:00 проводим разговорный клуб. На этой неделе обсуждаем достопримечательности
-                        и лайфхаки для поездки в Сеул.</p>
-                    <div class="ann-date">10 июня 2025</div>
+                    <span class="ann-tag">Объявление</span>
+                    <h3>{{ announcement.title }}</h3>
+                    <p>{{ announcement.content }}</p>
+                    <div class="ann-date">
+                        {{ announcement.published_at.strftime('%d.%m.%Y') }}
+                    </div>
                 </article>
+                {% endfor %}
 
-                <!-- Card 3 -->
-                <article class="ann-card">
-                    <span class="ann-tag">TOPIK</span>
-                    <h3>Интенсив по подготовке к TOPIK II — август</h3>
-                    <p>Запускаем месячный интенсив для уровней B2–C1. Упор на письменную часть и аудирование. Количество
-                        мест строго ограничено.</p>
-                    <div class="ann-date">5 июня 2025</div>
-                </article>
+                {% else %}
+                <!-- shown when the database has no announcements yet -->
+                <div style="
+                  grid-column: 1/-1;
+                  text-align: center;
+                  padding: 60px 20px;
+                  color: var(--text-muted);
+                  font-size: 0.95rem;
+                ">
+                    <div style="font-size: 2rem; margin-bottom: 12px;">📭</div>
+                    Объявлений пока нет. Загляните позже!
+                </div>
+                {% endif %}
 
-                <!-- Card 4 -->
-                <article class="ann-card">
-                    <span class="ann-tag">Скидка</span>
-                    <h3>Приведи друга — получи скидку 15% на следующий месяц</h3>
-                    <p>Действующим студентам: если вы привели друга и он записался на курс, вы получаете скидку на
-                        следующий расчётный период.</p>
-                    <div class="ann-date">1 июня 2025</div>
-                </article>
-
-                <!-- Card 5 -->
-                <article class="ann-card">
-                    <span class="ann-tag">Расписание</span>
-                    <h3>Изменение расписания группы B1 со 2 июля</h3>
-                    <p>Группа уровня B1 (вторник/четверг) переносится с 18:30 на 19:00. Пожалуйста, учтите это при
-                        планировании.</p>
-                    <div class="ann-date">28 мая 2025</div>
-                </article>
-
-                <!-- Card 6 -->
-                <article class="ann-card">
-                    <span class="ann-tag">Культура</span>
-                    <h3>К-культурный вечер: кино, еда, язык</h3>
-                    <p>Устраиваем вечер корейского кино с субтитрами на русском и корейском. Разбираем живые диалоги и
-                        угощаемся корейскими закусками.</p>
-                    <div class="ann-date">20 мая 2025</div>
-                </article>
             </div>
+
+        </div>
         </div>
     </section>
 

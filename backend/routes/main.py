@@ -202,3 +202,4 @@ def groups():
     """
     all_groups = StudyGroup.query.order_by(StudyGroup.level).all()
     return render_template("groups.html", groups=all_groups)
+
